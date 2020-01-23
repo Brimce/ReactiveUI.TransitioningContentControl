@@ -1,0 +1,16 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="WpfTestApp.Original.OriginalView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:original="clr-namespace:WpfTestApp.Original"
+    xmlns:rxui="http://reactiveui.net"
+    x:TypeArguments="original:OriginalViewModel"
+    Background="Lavender"
+    mc:Ignorable="d">
+    <TextBlock
+        x:Name="PathTextBlock"
+        Margin="10"
+        Foreground="BurlyWood" />
+</rxui:ReactiveUserControl>

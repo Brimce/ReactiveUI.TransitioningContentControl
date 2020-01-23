@@ -1,0 +1,68 @@
+﻿<rxui:ReactiveWindow
+    x:Class="WpfTestApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controlLibrary="clr-namespace:ReactiveUI.ControlLibrary;assembly=ReactiveUI.ControlLibrary"
+    xmlns:rxui="http://reactiveui.net"
+    xmlns:wpfTest="clr-namespace:WpfTestApp"
+    Title="ReactiveUI.Routing"
+    Width="620"
+    Height="560"
+    x:TypeArguments="wpfTest:MainViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Original router" />
+        <rxui:RoutedViewHost
+            x:Name="OriginalRoutedViewHost"
+            Grid.Row="1"
+            Margin="0,0,0,40"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Transition="{Binding ElementName=ComboBoxTransitionType, Path=SelectedItem, FallbackValue=Fade}"
+            TransitionPart="OutIn" />
+
+        <TextBlock Grid.Row="2" Text="Router with TransitioningContentControl1" />
+        <controlLibrary:RoutedViewHost1
+            x:Name="RoutedViewHost1"
+            Grid.Row="3"
+            Margin="0,0,0,40"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Transition="{Binding ElementName=ComboBoxTransitionType, Path=SelectedItem, FallbackValue=Fade}"
+            TransitionPart="OutIn" />
+
+        <TextBlock Grid.Row="4" Text="Router with TransitioningContentControl2" />
+        <controlLibrary:RoutedViewHost2
+            x:Name="RoutedViewHost2"
+            Grid.Row="5"
+            Margin="0,0,0,40"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Transition="{Binding ElementName=ComboBoxTransitionType, Path=SelectedItem, FallbackValue=Fade}"
+            TransitionPart="OutIn" />
+
+        <StackPanel
+            Grid.Row="6"
+            Margin="15"
+            Orientation="Horizontal">
+            <Button x:Name="GoNextButton" Content="Go to first" />
+            <Button
+                x:Name="GoBackButton"
+                Margin="5,0,0,0"
+                Content="Go back" />
+            <ComboBox
+                x:Name="ComboBoxTransitionType"
+                MinWidth="150"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</rxui:ReactiveWindow>
