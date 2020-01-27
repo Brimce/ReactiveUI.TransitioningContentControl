@@ -9,11 +9,13 @@ namespace WpfTestApp.Original
         public OriginalView()
         {
             InitializeComponent();
-            Console.WriteLine("Create OriginalView");
+            if (App.ShowOriginaltViewLog)
+                Console.WriteLine("Create OriginalView");
 
             this.WhenActivated(disposables =>
             {
-                Console.WriteLine("Active OriginalView");
+                if (App.ShowOriginaltViewLog)
+                    Console.WriteLine("Active OriginalView");
 
                 this.OneWayBind(ViewModel, x => x.UrlPathSegment, x => x.PathTextBlock.Text)
                     .DisposeWith(disposables);

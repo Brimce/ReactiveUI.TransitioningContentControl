@@ -7,5 +7,8 @@ namespace WpfTestApp
     /// </summary>
     public partial class App : Application
     {
+        public static bool ShowFirstViewLog => false;
+        public static bool ShowSecondViewLog => true;
+        public static bool ShowOriginaltViewLog => false;
     }
 }

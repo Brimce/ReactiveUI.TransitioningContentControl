@@ -10,11 +10,13 @@ namespace WpfTestApp.FirstBis
         public FirstBisView()
         {
             InitializeComponent();
-            Console.WriteLine("Create FirstBisView");
+            if (App.ShowFirstViewLog)
+                Console.WriteLine("Create FirstBisView");
 
             this.WhenActivated(disposables =>
             {
-                Console.WriteLine("Active FirstBisView");
+                if (App.ShowFirstViewLog)
+                    Console.WriteLine("Active FirstBisView");
 
                 this.OneWayBind(ViewModel, x => x.UrlPathSegment, x => x.PathTextBlock.Text)
                     .DisposeWith(disposables);

@@ -9,10 +9,13 @@ namespace WpfTestApp.Second
         public SecondView()
         {
             InitializeComponent();
-            Console.WriteLine("Create SecondView");
+            if (App.ShowSecondViewLog)
+                Console.WriteLine("Create SecondView");
+            
             this.WhenActivated(disposables =>
             {
-                Console.WriteLine("Active SecondView");
+                if (App.ShowSecondViewLog)
+                    Console.WriteLine("Active SecondView");
 
                 this.OneWayBind(ViewModel, x => x.UrlPathSegment, x => x.PathTextBlock.Text)
                     .DisposeWith(disposables);

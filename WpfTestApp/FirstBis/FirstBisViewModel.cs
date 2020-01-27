@@ -8,7 +8,7 @@ namespace WpfTestApp.FirstBis
     public class FirstBisViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
     {
         public string UrlPathSegment => "First Bis";
-    
+
         public IScreen HostScreen { get; }
 
         public FirstBisViewModel(IScreen screen = null)
@@ -16,10 +16,12 @@ namespace WpfTestApp.FirstBis
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
             this.WhenActivated(disposable =>
             {
-                Console.WriteLine("Active FirstBisViewModel");
+                if (App.ShowFirstViewLog)
+                    Console.WriteLine("Active FirstBisViewModel");
                 Disposable.Create(() =>
                     {
-                        Console.WriteLine("Dispose FirstBisViewModel");
+                        if (App.ShowFirstViewLog)
+                            Console.WriteLine("Dispose FirstBisViewModel");
                     })
                     .DisposeWith(disposable);
             });

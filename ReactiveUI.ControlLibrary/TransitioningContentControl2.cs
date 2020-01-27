@@ -227,6 +227,15 @@ namespace ReactiveUI.ControlLibrary
             return (ContentPresenter) _container.Children[_container.Children.Count - 1];
         }
 
+        /// <summary>
+        /// Create the storyboard associated with the transition and transitionPart
+        /// </summary>
+        /// <param name="transition"></param>
+        /// <param name="transitionPart"></param>
+        /// <param name="oldContent"></param>
+        /// <param name="newContent"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         private Storyboard CreateStoryboard(
             ReactiveUI.TransitioningContentControl.TransitionType transition, 
             TransitionPartType transitionPart, 
@@ -335,25 +344,4 @@ namespace ReactiveUI.ControlLibrary
             return sb;
         }
     }
-
-    ///// <summary>
-    ///// Represents the type of transition that a TransitioningContentControl will perform.
-    ///// </summary>
-    //public enum TransitionType
-    //{
-    //    /// <summary>
-    //    /// A simple fading transition.
-    //    /// </summary>
-    //    Fade,
-
-    //    /// <summary>
-    //    /// A transition that fades the new element in from the top.
-    //    /// </summary>
-    //    FadeDown,
-
-    //    /// <summary>
-    //    /// A transition that slides old content left and out of view, then slides new content back in from the same direction.
-    //    /// </summary>
-    //    SlideLeft
-    //}
 }

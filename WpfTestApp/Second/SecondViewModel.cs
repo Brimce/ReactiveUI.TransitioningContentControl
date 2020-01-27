@@ -8,7 +8,7 @@ namespace WpfTestApp.Second
     public class SecondViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
     {
         public string UrlPathSegment => "Second";
-    
+
         public IScreen HostScreen { get; }
 
         public SecondViewModel(IScreen screen = null)
@@ -16,10 +16,12 @@ namespace WpfTestApp.Second
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
             this.WhenActivated(disposable =>
             {
-                Console.WriteLine("Active SecondViewModel");
+                if (App.ShowSecondViewLog)
+                    Console.WriteLine("Active SecondViewModel");
                 Disposable.Create(() =>
                     {
-                        Console.WriteLine("Dispose SecondViewModel");
+                        if (App.ShowSecondViewLog)
+                            Console.WriteLine("Dispose SecondViewModel");
                     })
                     .DisposeWith(disposable);
             });

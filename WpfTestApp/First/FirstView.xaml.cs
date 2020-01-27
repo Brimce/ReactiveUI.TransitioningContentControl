@@ -9,11 +9,14 @@ namespace WpfTestApp.First
         public FirstView()
         {
             InitializeComponent();
-            Console.WriteLine("Create FirstView");
+
+            if (App.ShowFirstViewLog)
+                Console.WriteLine("Create FirstView");
 
             this.WhenActivated(disposables =>
             {
-                Console.WriteLine("Active FirstView");
+                if (App.ShowFirstViewLog)
+                    Console.WriteLine("Active FirstView");
 
                 this.OneWayBind(ViewModel, x => x.UrlPathSegment, x => x.PathTextBlock.Text)
                     .DisposeWith(disposables);

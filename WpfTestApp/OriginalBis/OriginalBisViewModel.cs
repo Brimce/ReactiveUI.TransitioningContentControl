@@ -8,7 +8,7 @@ namespace WpfTestApp.OriginalBis
     public class OriginalBisViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
     {
         public string UrlPathSegment => "Original Bis";
-    
+
         public IScreen HostScreen { get; }
 
         public OriginalBisViewModel(IScreen screen = null)
@@ -16,10 +16,12 @@ namespace WpfTestApp.OriginalBis
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
             this.WhenActivated(disposable =>
             {
-                Console.WriteLine("Active OriginalBisViewModel");
+                if (App.ShowOriginaltViewLog)
+                    Console.WriteLine("Active OriginalBisViewModel");
                 Disposable.Create(() =>
                     {
-                        Console.WriteLine("Dispose OriginalBisViewModel");
+                        if (App.ShowOriginaltViewLog)
+                            Console.WriteLine("Dispose OriginalBisViewModel");
                     })
                     .DisposeWith(disposable);
             });
