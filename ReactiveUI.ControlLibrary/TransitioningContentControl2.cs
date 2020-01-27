@@ -168,21 +168,25 @@ namespace ReactiveUI.ControlLibrary
             );
         }
 
+        /// <summary>
+        /// Manage the transition to display the newContent
+        /// </summary>
+        /// <param name="newContent"></param>
         private void QueueTransition(object newContent)
         {
-            //not null if is playing
             if (_isTransitioning)
             {
-                //change the content 
+                // Set the last created ContentPresenter.Content with newContent
                 GetNewContentPresenter().Content = newContent;
                 return;
             }
 
+            // Create a new ContentPresenter to display the newContent
             var contentPresenter = new ContentPresenter
             {
                 Content = newContent
             };
-
+            // Add the ContentPresenter to the container
             _container.Children.Add(contentPresenter);
 
             // Create the storyboard
@@ -194,23 +198,31 @@ namespace ReactiveUI.ControlLibrary
                 _container
             );
 
-            // Remove old content
             _storyboard.Completed += OnStoryboardCompleted;
 
             _storyboard.Begin(_container);
             _isTransitioning = true;
         }
 
+        /// <summary>
+        /// Some cleaning after the transition 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void OnStoryboardCompleted(object sender, EventArgs args)
         {
+            // Remove the ContentPresenter containing the old View
             _container.Children.RemoveAt(0);
+
+            // Clean _storyboard 
             _storyboard.Completed -= OnStoryboardCompleted;
             _storyboard = null;
+            
             _isTransitioning = false;
         }
 
         /// <summary>
-        /// Get 
+        /// Get the ContentPresenter containing the old view if exist
         /// </summary>
         /// <returns></returns>
         private ContentPresenter GetOldContentPresenter()
@@ -219,7 +231,7 @@ namespace ReactiveUI.ControlLibrary
         }
 
         /// <summary>
-        /// Get last added ContentPresenter
+        /// Get the ContentPresenter containing the new view
         /// </summary>
         /// <returns></returns>
         private ContentPresenter GetNewContentPresenter()
