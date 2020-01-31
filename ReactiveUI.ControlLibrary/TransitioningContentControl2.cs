@@ -156,10 +156,10 @@ namespace ReactiveUI.ControlLibrary
         /// <inheritdoc/>
         public override void OnApplyTemplate()
         {
-            // Wire up all of the various control parts.
+            // Wire up control parts.
             _container = (Grid) GetTemplateChild("PART_Container") ?? throw new ArgumentException("PART_Container not found.");
 
-            // Set the current content site to the first piece of content.
+            // Add the Content to the container children
             _container.Children.Add(
                 new ContentPresenter
                 {
@@ -176,24 +176,24 @@ namespace ReactiveUI.ControlLibrary
         {
             if (_isTransitioning)
             {
-                // Set the last created ContentPresenter.Content with newContent
-                GetNewContentPresenter().Content = newContent;
+                // Refresh the content
+                GetNewViewContentPresenter().Content = newContent;
                 return;
             }
 
-            // Create a new ContentPresenter to display the newContent
+            // Create a ContentPresenter to display newContent
             var contentPresenter = new ContentPresenter
             {
                 Content = newContent
             };
-            // Add the ContentPresenter to the container
+            // Add the created ContentPresenter to the container
             _container.Children.Add(contentPresenter);
 
             // Create the storyboard
             _storyboard = CreateStoryboard(
                 Transition,
                 TransitionPart,
-                GetOldContentPresenter(),
+                GetOldViewContentPresenter(),
                 contentPresenter,
                 _container
             );
@@ -211,7 +211,7 @@ namespace ReactiveUI.ControlLibrary
         /// <param name="args"></param>
         private void OnStoryboardCompleted(object sender, EventArgs args)
         {
-            // Remove the ContentPresenter containing the old View
+            // Remove the old View
             _container.Children.RemoveAt(0);
 
             // Clean _storyboard 
@@ -222,10 +222,11 @@ namespace ReactiveUI.ControlLibrary
         }
 
         /// <summary>
-        /// Get the ContentPresenter containing the old view if exist
+        /// Get the ContentPresenter containing the old view
+        /// Return a value only during transition
         /// </summary>
         /// <returns></returns>
-        private ContentPresenter GetOldContentPresenter()
+        private ContentPresenter GetOldViewContentPresenter()
         {
             return _container.Children.Count == 1 ? null : (ContentPresenter) _container.Children[0];
         }
@@ -234,13 +235,13 @@ namespace ReactiveUI.ControlLibrary
         /// Get the ContentPresenter containing the new view
         /// </summary>
         /// <returns></returns>
-        private ContentPresenter GetNewContentPresenter()
+        private ContentPresenter GetNewViewContentPresenter()
         {
             return (ContentPresenter) _container.Children[_container.Children.Count - 1];
         }
 
         /// <summary>
-        /// Create the storyboard associated with the transition and transitionPart
+        /// Create the storyboard corresponding to transition and transitionPart
         /// </summary>
         /// <param name="transition"></param>
         /// <param name="transitionPart"></param>
